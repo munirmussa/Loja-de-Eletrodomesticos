@@ -13,6 +13,8 @@ class TestAparelho(unittest.TestCase):
     def test_vender_aparelho(self):
         pass
 
+    def test_trocar_aparelho(self):
+        pass
 
 if __name__=="__main__":
     unittest.main()
