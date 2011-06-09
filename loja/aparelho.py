@@ -8,5 +8,5 @@ class Aparelho():
         self.modelo = modelo
         self.numero_de_serie = numero_de_serie
 
-    def vender_aparelho()
+    def vender_aparelho():
         pass
