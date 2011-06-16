@@ -1,4 +1,5 @@
 #coding: utf-8
+from garantia import Garantia
 from datetime import date
 
 class Aparelho():
@@ -12,12 +13,17 @@ class Aparelho():
     def vender_aparelho(self):
         if self.quantidade > 0:
             Garantia().criar_termo_garantia()
-            self.quantidade = -1
+            self.quantidade -= 1
         else:
             return "Não há estoque suficiente."
 
     def trocar_aparelho(self):
-        if Garantia().data_compra < date.today():
+        if Garantia().data_validade_garantia > date.today():
             Garantia().cliente_que_trocou = Cliente().nome
+            if self.quantidade > 0:            
+                self.quantidade -= 1
+            else:
+                return "Não há estoque suficiente."
         else:
             return "Produto fora da data de garantia."
+
