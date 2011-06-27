@@ -14,11 +14,13 @@ class Aparelho():
         if self.quantidade > 0:
             Garantia().criar_termo_garantia()
             self.quantidade -= 1
+            
         else:
             return "Não há estoque suficiente."
 
     def trocar_aparelho(self):
-        if Garantia().data_validade_garantia > date.today():
+        data_garantia = date(data_compra.year + 1,data_compra.month,data_compra.day)
+        if date.today() < data_garantia:
             Garantia().cliente_que_trocou = Cliente().nome
             if self.quantidade > 0:            
                 self.quantidade -= 1
