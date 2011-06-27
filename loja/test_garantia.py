@@ -5,7 +5,7 @@ from should_dsl import should
 from garantia import Garantia
 
 class TestGarantia(unittest.TestCase):
-    def test_criar_garantia(self):
+    def test_criar_termo_garantia(self):
         garantia1 = Garantia()
         garantia1.criar_termo_garantia()
         garantia1.data_compra |should| equal_to(date.today())
