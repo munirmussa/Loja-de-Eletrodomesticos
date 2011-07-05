@@ -12,10 +12,11 @@ class Aparelho():
 		self.marca = marca
 		self.modelo = modelo
 #		self.numero_de_serie = Aparelho.numero_de_serie
-		self.cliente_que_comprou = None
-		self.cliente_que_trocou = None
-		self.data_compra = None
-		self.defeito = None
+#		self.cliente_que_comprou = None
+#		self.cliente_que_trocou = None
+#		self.data_compra = None
+#		self.defeito = None
+		self.termo_garantia = None
 		self.numero_de_serie = Aparelho.contador
 		Aparelho.contador += 1
 #		self.aparelhos.append(self)
@@ -62,14 +63,6 @@ class Aparelho():
                 return "Não há estoque suficiente."
         else:
             return "Produto fora da data de garantia."
-
-    def verificar_garantia(self):
-        data_garantia_ano = self.data_compra.year + 1
-        data_garantia = date(self.data_garantia_ano, self.data_garantia.month, self.data_garantia.day)
-        if date.today() <= self.data_garantia:
-            return True
-        else:
-            return False
 
     def verificar_quantidade(self):
         resultado = ""

@@ -1,6 +1,8 @@
 # coding: utf-8
 from aparelho import Aparelho
+from cliente import Cliente
 from datetime import date
+from garantia import Garantia
 
 # Estancia objetos na classe Aparelho e os adiciona a lista de produtos.
 # Caso a quantidade seja inválida uma mensagem educada
@@ -20,7 +22,7 @@ def verificar_disponibilidade(marca,modelo):
 	return quantidade_disponivel
 
 # Função que efetua a venda dos produtos.
-def vender_aparelho(marca,modelo,quantidade):
+def vender_aparelho(marca,modelo,quantidade,nome,cidade,bairro,rua,numero,data_compra):
 ###	quantidade_disponivel = verificar_disponibilidade(marca,modelo)
 ###	if quantidade_disponivel > 0 :
 
@@ -38,8 +40,9 @@ def vender_aparelho(marca,modelo,quantidade):
 						if ((Aparelho.aparelhos[y-1].marca == marca) and (Aparelho.aparelhos[y-1].modelo == modelo)):
 # ...se sim ele define os atributos "cliente_que_comprou" e "data_compra" do objeto Aparelho, o adiciona na lista
 # vendidos e o remove da lista produtos
-							Aparelho.aparelhos[y-1].cliente_que_comprou = "cliente"
-							Aparelho.aparelhos[y-1].data_compra = date.today()
+							Aparelho.aparelhos[y-1].cliente_que_comprou = Cliente(nome,cidade,bairro,rua,numero)
+							Aparelho.aparelhos[y-1].garantia = Garantia(Aparelho.aparelhos[y-1].cliente_que_comprou.nome,data_compra)
+#							Aparelho.aparelhos[y-1].data_compra = date.today()
 							Aparelho.vendidos.append(Aparelho.aparelhos[y-1])
 							Aparelho.aparelhos.remove(Aparelho.aparelhos[y-1])
 							quantidade -= 1							
@@ -49,4 +52,21 @@ def vender_aparelho(marca,modelo,quantidade):
 		return "Produto em falta"				
 			
 		
+	def trocar_aparelho(self):
+		if verificar_garantia:
+			
+			if self.quantidade > 0:            
+				self.quantidade -= 1
+			else:
+				return "Não há estoque suficiente."
+		else:
+			return "Produto fora da data de garantia."
 
+	def verificar_garantia(self):
+		
+		data_garantia_ano = self.
+		data_garantia = self.data_garantia_ano, self.data_garantia.month, self.data_garantia.day)
+		if date.today() <= self.data_garantia:
+			return True
+		else:
+			return False

@@ -3,7 +3,7 @@ import unittest
 from should_dsl import should
 from estoque import adicionar_aparelho , vender_aparelho , verificar_disponibilidade
 from aparelho import Aparelho
-
+from cliente import Cliente
 
 
 class TestEstoque(unittest.TestCase):
@@ -41,30 +41,30 @@ class TestEstoque(unittest.TestCase):
 
 	def test_vender_aparelho(self):
 # Vendendo um Ar Condicionado Gree ele é removido da lista de aparelhos e colocado na lista de vendidos
-		vender_aparelho("Gree","Ar condicionado",1)
+		vender_aparelho("Gree","Ar condicionado",1,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011")
 		len(Aparelho.vendidos) |should| equal_to(1)
 		len(Aparelho.aparelhos) |should| equal_to(6)
 # Tentado efetuar uma venda de uma quantidade maior que a disponível do mesmo profuto e retornada uma mensagem de erro e
 # as listas de aparelhos e vendidos continuam intactas
-		vender_aparelho("Gree","Ar condicionado",50) |should| equal_to("Quantidade insuficiente no estoque")
+		vender_aparelho("Gree","Ar condicionado",50,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011") |should| equal_to("Quantidade insuficiente no estoque")
 		len(Aparelho.vendidos) |should| equal_to(1)
 		len(Aparelho.aparelhos) |should| equal_to(6)
 
 # Vendendo os últimos produtos em estoque a lista aparelhos fica sem o Ar Condicionado Gree...
-		vender_aparelho("Gree","Ar condicionado",2)
+		vender_aparelho("Gree","Ar condicionado",2,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011")
 		len(Aparelho.vendidos) |should| equal_to(3)
 		len(Aparelho.aparelhos) |should| equal_to(4)
 
-		vender_aparelho("Gree","Ar condicionado",1)
+		vender_aparelho("Gree","Ar condicionado",1,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011")
 		len(Aparelho.vendidos) |should| equal_to(4)
 		len(Aparelho.aparelhos) |should| equal_to(3)
 
-		vender_aparelho("Gree","Ar condicionado",1)
+		vender_aparelho("Gree","Ar condicionado",1,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011")
 		len(Aparelho.vendidos) |should| equal_to(5)
 		len(Aparelho.aparelhos) |should| equal_to(2)
 
 # ...logo, ao tentar vender mais produtos do mesmo ocorre a mensagem de erro
-		vender_aparelho("Gree","Ar condicionado",2) |should| equal_to("Produto em falta")
+		vender_aparelho("Gree","Ar condicionado",2,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011") |should| equal_to("Produto em falta")
 		len(Aparelho.vendidos) |should| equal_to(5)
 		len(Aparelho.aparelhos) |should| equal_to(2)
 		Aparelho.aparelhos[0].marca |should| equal_to("Microboard")

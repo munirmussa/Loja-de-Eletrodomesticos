@@ -3,22 +3,20 @@ import unittest
 from datetime import date
 from should_dsl import should
 from garantia import Garantia
+from cliente import Cliente
+
 
 class TestGarantia(unittest.TestCase):
     def test_criar_termo_garantia(self):
-        garantia1 = Garantia()
-        garantia1.criar_termo_garantia()
-        garantia1.data_compra |should| equal_to(date.today())
-        garantia1.data_validade_garantia |should| equal_to(date(2012,06,16))
-        garantia1.marca |should| equal_to("Gree")
-        garantia1.modelo |should| equal_to("Ar condicionado")
-        garantia1.numero_de_serie |should| equal_to(12345)
-        garantia1.cliente_que_comprou |should| equal_to("Antonio")
-        garantia1.cidade |should| equal_to("Campos")
-        garantia1.bairro |should| equal_to("Centro")
-        garantia1.rua |should| equal_to("João Pessoa")
-        garantia1.numero |should| equal_to(200)
-        garantia1.cliente_que_trocou |should| equal_to(None)
+		cliente1 = Cliente("Antonio", "Campos", "Centro", "João Pessoa", "200")
+		garantia1 = Garantia(cliente1.nome,"29/06/1990")
+		garantia1.cliente_que_comprou |should| equal_to("Antonio")
+		garantia1.data_compra |should| equal_to(date(1990,06,29))
+
+#	def test_verificar_garantia(self):
+	def test_verificar_garantia(self):
+		cliente2 = Cliente("Antonio", "Campos", "Centro", "João Pessoa", "200")
+		cliente2.verificar_garantia() |should| equal_to(False)		
         
 
 if __name__=="__main__":
