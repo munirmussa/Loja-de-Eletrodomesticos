@@ -1,7 +1,7 @@
 #coding: utf-8
 import unittest
 from should_dsl import should
-from estoque import adicionar_aparelho , vender_aparelho , verificar_disponibilidade
+from estoque import adicionar_aparelho , vender_aparelho , verificar_disponibilidade , trocar_aparelho
 from aparelho import Aparelho
 from cliente import Cliente
 
@@ -41,6 +41,11 @@ class TestEstoque(unittest.TestCase):
 
 	def test_vender_aparelho(self):
 # Vendendo um Ar Condicionado Gree ele é removido da lista de aparelhos e colocado na lista de vendidos
+		Aparelho.vendidos = []
+		Aparelho.aparelhos = []
+		Aparelho.contador = 1
+		adicionar_aparelho("Gree", "Ar condicionado", 5)
+		adicionar_aparelho("Microboard", "Notebook", 2)
 		vender_aparelho("Gree","Ar condicionado",1,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011")
 		len(Aparelho.vendidos) |should| equal_to(1)
 		len(Aparelho.aparelhos) |should| equal_to(6)
@@ -62,7 +67,7 @@ class TestEstoque(unittest.TestCase):
 		vender_aparelho("Gree","Ar condicionado",1,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011")
 		len(Aparelho.vendidos) |should| equal_to(5)
 		len(Aparelho.aparelhos) |should| equal_to(2)
-
+		
 # ...logo, ao tentar vender mais produtos do mesmo ocorre a mensagem de erro
 		vender_aparelho("Gree","Ar condicionado",2,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011") |should| equal_to("Produto em falta")
 		len(Aparelho.vendidos) |should| equal_to(5)
@@ -74,31 +79,29 @@ class TestEstoque(unittest.TestCase):
 		Aparelho.aparelhos[1].modelo |should| equal_to("Notebook")
 		Aparelho.aparelhos[1].numero_de_serie |should| equal_to(7)
 
+		print len(Aparelho.aparelhos)
+		print len(Aparelho.vendidos)
 
+	def test_trocar_aparelho(self):
+		Aparelho.vendidos = []
+		Aparelho.aparelhos = []
+		Aparelho.contador = 1
+		adicionar_aparelho("Gree", "Ar condicionado", 5)
+		adicionar_aparelho("Microboard", "Notebook", 2)
+		vender_aparelho("Gree","Ar condicionado",1,"Saulo","Campos","Matins Lage","Trav. Miessy","13","29/06/2011")
+		len(Aparelho.vendidos) |should| equal_to(1)
+		len(Aparelho.aparelhos) |should| equal_to(6)
+		trocar_aparelho(1,"Saulo","Não gela")
+		len(Aparelho.vendidos) |should| equal_to(1)
+		len(Aparelho.trocados) |should| equal_to(1)
+		len(Aparelho.aparelhos) |should| equal_to(5)
 
-#        len(Aparelho.aparelhos) |should| equal_to(4)
-#		Aparelho.vendidos[0].marca |should| equal_to("Gree")
-#		vender_aparelho("Gree","Ar Condicionado",80) |should| equal_to("Quantidade insuficiente no estoque")
-#		vender_aparelho("Gree","Ar Condicionado",80) |should| equal_to(aaa)
-#		aaaaaa |should| equal_to(555)
-#		len(Aparelho.vendidos) |should| equal_to(1)
-
-
-#        len(Aparelho.aparelhos) |should| equal_to(4)
-
-# ---- (Linha abaixo) "quantidade" não é atributo de Aparelho. Teste inválido
-#        ar_condicionado.quantidade |should| equal_to(1)
-
-#    def test_vender_aparelho(self):
- #       cliente1 = Cliente("Antonio", "Campos", "Centro", "João Pessoa", 200)
-  #      ar_condicionado = Aparelho("Gree", "Ar condicionado", 1)
-   #     ar_condicionado.vender_aparelho("Gree", "Ar condicionado", 1, cliente1)
-    #    ar_condicionado.vendidos |should| have(1)
-
-    #def test_trocar_aparelho(self):
-     #   ar_condicionado = Aparelho("Gree", "Ar condicionado", 12345, 5)
-      #  ar_condicionado.trocar_aparelho()
-       # ar_condicionado.quantidade |should| equal_to(4)
+	def test_quantidade_estoque(self):
+		Aparelho.vendidos = []
+		Aparelho.aparelhos = []
+		Aparelho.contador = 1
+		adicionar_aparelho("Gree", "Ar condicionado", 5)
+		Aparelho.aparelhos[0].quantidade_estoque() |should| equal_to(5)
 
 if __name__=="__main__":
     unittest.main()

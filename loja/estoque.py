@@ -50,23 +50,41 @@ def vender_aparelho(marca,modelo,quantidade,nome,cidade,bairro,rua,numero,data_c
 			return "Quantidade insuficiente no estoque"
 	else:
 		return "Produto em falta"				
-			
-		
-	def trocar_aparelho(self):
-		if verificar_garantia:
-			
-			if self.quantidade > 0:            
-				self.quantidade -= 1
-			else:
-				return "Não há estoque suficiente."
-		else:
-			return "Produto fora da data de garantia."
 
-	def verificar_garantia(self):
+def desformatar_data(data):
+	data_lista = str(data).split("-")
+	data_string = data_lista[2] + "/" + data_lista[1] + "/" + data_lista[0]
+	return data_string
+			
 		
-		data_garantia_ano = self.
-		data_garantia = self.data_garantia_ano, self.data_garantia.month, self.data_garantia.day)
-		if date.today() <= self.data_garantia:
-			return True
+def trocar_aparelho(numero_de_serie,cliente_que_trocou,defeito):
+	for aparelho in range(len(Aparelho.vendidos)):
+		if Aparelho.vendidos[aparelho].numero_de_serie == numero_de_serie:
+			if Aparelho.vendidos[aparelho].garantia.verificar_garantia():
+				if verificar_disponibilidade(Aparelho.vendidos[aparelho].marca,Aparelho.vendidos[aparelho].modelo) > 0:
+					Aparelho.vendidos[aparelho].garantia.defeito = defeito
+					Aparelho.vendidos[aparelho].garantia.cliente_que_trocou = cliente_que_trocou
+					Aparelho.trocados.append(Aparelho.vendidos[aparelho])
+					vender_aparelho(Aparelho.vendidos[aparelho].marca,Aparelho.vendidos[aparelho].modelo,1,Aparelho.vendidos[aparelho].cliente_que_comprou.nome,Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['cidade'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['bairro'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['rua'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['numero'],desformatar_data(Aparelho.vendidos[aparelho].garantia.data_compra))
+					Aparelho.vendidos.remove(Aparelho.vendidos[aparelho])
+
+				else:
+					return "Aparelho indisponível para troca."
+			else:
+				return "Aparelho fora do prazo de garantia."
 		else:
-			return False
+			return "Aparelho não encontrado!"
+
+
+
+												
+						
+			
+#			if self.quantidade > 0:            
+#				self.quantidade -= 1
+#			else:
+#				return "Não há estoque suficiente."
+#		else:
+#			return "Produto fora da data de garantia."
+
+

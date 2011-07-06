@@ -18,8 +18,8 @@ class Garantia():
 
 	def verificar_garantia(self):		
 		data_garantia_ano = self.data_compra.year + 1
-		data_garantia = date(self.data_garantia_ano, self.data_garantia.month, self.data_garantia.day)
-		if date.today() <= self.data_garantia:
+		data_garantia = date(data_garantia_ano, self.data_compra.month, self.data_compra.day)
+		if date.today() <= data_garantia:
 			return True
 		else:
 			return False

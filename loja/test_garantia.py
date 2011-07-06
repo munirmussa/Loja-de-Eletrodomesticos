@@ -13,11 +13,14 @@ class TestGarantia(unittest.TestCase):
 		garantia1.cliente_que_comprou |should| equal_to("Antonio")
 		garantia1.data_compra |should| equal_to(date(1990,06,29))
 
-#	def test_verificar_garantia(self):
-	def test_verificar_garantia(self):
+    def test_verificar_garantia(self):
 		cliente2 = Cliente("Antonio", "Campos", "Centro", "João Pessoa", "200")
-		cliente2.verificar_garantia() |should| equal_to(False)		
+		garantia2 = Garantia(cliente2.nome,"29/06/1990")
+		garantia2.verificar_garantia() |should| equal_to(False)		
         
+		cliente3 = Cliente("Saulo", "Chaves", "Martins Lage", "Trav. Miessy", "13")
+		garantia3 = Garantia(cliente3.nome,"29/06/2011")
+		garantia3.verificar_garantia() |should| equal_to(True)		
 
 if __name__=="__main__":
     unittest.main()
