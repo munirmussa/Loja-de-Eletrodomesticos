@@ -43,7 +43,7 @@ def vender_aparelho(marca,modelo,quantidade,nome,cidade,bairro,rua,numero,data_c
 		else:
 			return "Quantidade insuficiente no estoque"
 	else:
-		return "Produto em falta"				
+		return "Aparelho indisponível para venda."				
 
 def desformatar_data(data):
 	data_lista = str(data).split("-")
@@ -60,9 +60,8 @@ def trocar_aparelho(numero_de_serie,cliente_que_trocou,defeito):
 					Aparelho.vendidos[aparelho].garantia.cliente_que_trocou = cliente_que_trocou
 					Aparelho.vendidos[aparelho].garantia.data_troca = date.today()
 					Aparelho.trocados.append(Aparelho.vendidos[aparelho])
-					vender_aparelho(Aparelho.vendidos[aparelho].marca,Aparelho.vendidos[aparelho].modelo,1,Aparelho.vendidos[aparelho].cliente_que_comprou.nome,Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['cidade'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['bairro'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['rua'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['numero'],desformatar_data(Aparelho.vendidos[aparelho].garantia.data_compra))
+					vender_aparelho(Aparelho.vendidos[aparelho].marca, Aparelho.vendidos[aparelho].modelo,1, Aparelho.vendidos[aparelho].cliente_que_comprou.nome, Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['cidade'], Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['bairro'], Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['rua'], Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['numero'], desformatar_data(Aparelho.vendidos[aparelho].garantia.data_compra))
 					Aparelho.vendidos.remove(Aparelho.vendidos[aparelho])
-
 				else:
 					return "Aparelho indisponível para troca."
 			else:
