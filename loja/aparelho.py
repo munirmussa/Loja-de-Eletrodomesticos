@@ -17,10 +17,13 @@ class Aparelho():
 #		self.cliente_que_trocou = None
 #		self.data_compra = None
 #		self.defeito = None
-		self.termo_garantia = None
+		self.garantia = None
 		self.numero_de_serie = Aparelho.contador
 		Aparelho.contador += 1
 
     def quantidade_estoque(self):
         return len(Aparelho.aparelhos)
+
+	def relacao_trocados(self):
+		return Aparelho.trocados
 

@@ -9,6 +9,7 @@ class Garantia():
 		self.cliente_que_comprou = cliente_que_comprou
 		self.cliente_que_trocou = None
 		self.data_compra = self.formatar_data(data_compra)
+		self.data_troca = None
 		self.defeito = None
 
 	def formatar_data(self,data_compra):
@@ -23,15 +24,3 @@ class Garantia():
 			return True
 		else:
 			return False
-		
-#	def criar_termo_garantia(self):
-#        self.data_compra = date.today()
-#       self.marca = Aparelho().marca
-#        self.modelo = Aparelho().modelo
-#       self.numero_de_serie = Aparelho().numero_de_serie
-#        self.cliente_que comprou = Cliente().nome
-#        self.cidade = Cliente().cidade
-#        self.bairro = Cliente().bairro
-#        self.rua = Cliente().rua
-#        self.numero = Cliente().numero
-#        self.cliente_que_trocou = None

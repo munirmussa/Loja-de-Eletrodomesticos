@@ -23,17 +23,12 @@ def verificar_disponibilidade(marca,modelo):
 
 # Função que efetua a venda dos produtos.
 def vender_aparelho(marca,modelo,quantidade,nome,cidade,bairro,rua,numero,data_compra):
-###	quantidade_disponivel = verificar_disponibilidade(marca,modelo)
-###	if quantidade_disponivel > 0 :
 
 # Verifica a disponibilidade do produto
 	if verificar_disponibilidade(marca,modelo) > 0:
 		if verificar_disponibilidade(marca,modelo) >= quantidade:
 # Loop percorrendo a lista produtos
 				for y in range(len(Aparelho.aparelhos)):
-###					quantidade_disponivel = verificar_disponibilidade(marca,modelo)
-###					if ((quantidade > 0) and (quantidade_disponivel >= quantidade)):
-
 # Em cada voltado loop é verificado se a quantidade ainda é maior que 0...
 					if quantidade > 0:
 # ...se sim ele verifica se o aparelho na posição atual da lista aparelhos corresponde ao modelo e marca desejados...
@@ -42,7 +37,6 @@ def vender_aparelho(marca,modelo,quantidade,nome,cidade,bairro,rua,numero,data_c
 # vendidos e o remove da lista produtos
 							Aparelho.aparelhos[y-1].cliente_que_comprou = Cliente(nome,cidade,bairro,rua,numero)
 							Aparelho.aparelhos[y-1].garantia = Garantia(Aparelho.aparelhos[y-1].cliente_que_comprou.nome,data_compra)
-#							Aparelho.aparelhos[y-1].data_compra = date.today()
 							Aparelho.vendidos.append(Aparelho.aparelhos[y-1])
 							Aparelho.aparelhos.remove(Aparelho.aparelhos[y-1])
 							quantidade -= 1							
@@ -64,6 +58,7 @@ def trocar_aparelho(numero_de_serie,cliente_que_trocou,defeito):
 				if verificar_disponibilidade(Aparelho.vendidos[aparelho].marca,Aparelho.vendidos[aparelho].modelo) > 0:
 					Aparelho.vendidos[aparelho].garantia.defeito = defeito
 					Aparelho.vendidos[aparelho].garantia.cliente_que_trocou = cliente_que_trocou
+					Aparelho.vendidos[aparelho].garantia.data_troca = date.today()
 					Aparelho.trocados.append(Aparelho.vendidos[aparelho])
 					vender_aparelho(Aparelho.vendidos[aparelho].marca,Aparelho.vendidos[aparelho].modelo,1,Aparelho.vendidos[aparelho].cliente_que_comprou.nome,Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['cidade'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['bairro'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['rua'],Aparelho.vendidos[aparelho].cliente_que_comprou.endereco['numero'],desformatar_data(Aparelho.vendidos[aparelho].garantia.data_compra))
 					Aparelho.vendidos.remove(Aparelho.vendidos[aparelho])
@@ -74,17 +69,3 @@ def trocar_aparelho(numero_de_serie,cliente_que_trocou,defeito):
 				return "Aparelho fora do prazo de garantia."
 		else:
 			return "Aparelho não encontrado!"
-
-
-
-												
-						
-			
-#			if self.quantidade > 0:            
-#				self.quantidade -= 1
-#			else:
-#				return "Não há estoque suficiente."
-#		else:
-#			return "Produto fora da data de garantia."
-
-
